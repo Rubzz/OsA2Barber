@@ -1,2 +1,4 @@
-package Group14.Barber;public class Barber {
+package Group14.Barber;
+
+public class Barber {
 }

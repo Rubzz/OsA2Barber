@@ -1,36 +1,30 @@
 package Group14.Barber;
 
-import javax.management.monitor.Monitor;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
-public class Shop extends Monitor {
-    private static int customerLimit;
-    private boolean barberChairAvailable;
+public class Shop {
 
     public Shop()   {
-        barberChairAvailable = true;
 
     }
 
-    public void addCustomer()    {
-        new Customer();
-        customerLimit++;
-    }
+    public static void main(String[] args) {
+        Monitor m = new Monitor();
 
-    public void useBarberChair()    {
-        if (barberChairAvailable)    {
-            barberChairAvailable = false;
+        while(true) {
+            try {
+                Thread.sleep(ThreadLocalRandom.current().nextInt(100, 1000 + 100)); // Sleep until next person gets in
+            } catch (InterruptedException e) {
+            }
+
+            System.out.println("Customer walks in");
+
+            if (m.getCustomers() < m.getCustomerLimit()) {
+                new Thread(new Customer()).start();
+            } else {
+                System.out.println("Customer walks out, as no seats are available");
+            }
         }
-        else System.out.println("Barber Chair unavailable");
-
-    }
-
-    @Override
-    public void start() {
-
-    }
-
-    @Override
-    public void stop() {
-
     }
 }

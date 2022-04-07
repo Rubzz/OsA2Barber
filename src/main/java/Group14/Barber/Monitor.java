@@ -1,25 +1,17 @@
 package Group14.Barber;
 
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class Monitor {
+public class Monitor extends javax.management.monitor.Monitor {
     private final int customerLimit = 5;
     private int customers;
     private final Lock lock;
-    private boolean customerReady;
-    private boolean barberReady;
-    private boolean customerDone;
-    private boolean barberDone;
+
 
     public Monitor()   {
         this.customers = 0;
         lock = new ReentrantLock();
-        customerReady = false;
-        barberReady = true;
-        customerDone = false;
-        barberDone = false;
     }
 
     public void tryCutting()    {
@@ -45,15 +37,13 @@ public class Monitor {
         }
     }
 
-    public int getCustomers() {
-        return customers;
+    @Override
+    public void start() {
+
     }
 
-    public void setCustomers(int customers) {
-        this.customers = customers;
-    }
+    @Override
+    public void stop() {
 
-    public int getCustomerLimit() {
-        return customerLimit;
     }
 }

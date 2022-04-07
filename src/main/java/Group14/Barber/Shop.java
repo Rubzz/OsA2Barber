@@ -16,12 +16,15 @@ public class Shop {
             try {
                 Thread.sleep(ThreadLocalRandom.current().nextInt(100, 1000 + 100)); // Sleep until next person gets in
             } catch (InterruptedException e) {
+                e.printStackTrace();
             }
+
 
             System.out.println("Customer walks in");
 
             if (m.getCustomers() < m.getCustomerLimit()) {
                 new Thread(new Customer()).start();
+                m.setCustomers(m.getCustomers() + 1);
             } else {
                 System.out.println("Customer walks out, as no seats are available");
             }

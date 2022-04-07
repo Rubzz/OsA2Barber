@@ -23,6 +23,7 @@ public class Monitor {
     }
 
     public void tryCutting()    {
+        lock.lock();
         try {
             if (barberReady && customerReady)   {
                 barberDone = false;
@@ -39,10 +40,17 @@ public class Monitor {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        finally {
+            lock.unlock();
+        }
     }
 
     public int getCustomers() {
         return customers;
+    }
+
+    public void setCustomers(int customers) {
+        this.customers = customers;
     }
 
     public int getCustomerLimit() {

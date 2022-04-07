@@ -15,18 +15,18 @@ public class Monitor extends javax.management.monitor.Monitor {
     }
 
     public void tryCutting()    {
+        Barber b = new Barber();
+        Customer c = new Customer();
         lock.lock();
         try {
-            if (barberReady && customerReady)   {
-                barberDone = false;
-                customerDone = false;
-                barberReady = false;
-                customerReady = false;
+            if (b.isBarberReady() && c.isCustomerReady())   {
+                c.setCustomerDone(false);
+                b.setBarberReady(false);
+                c.setCustomerReady(false);
                 wait(1000);
                 customers = customers - 1;
-                barberDone = true;
-                customerDone = true;
-                barberReady = true;
+                c.setCustomerDone(true);
+                b.setBarberReady(true);
             }
 
         } catch (InterruptedException e) {

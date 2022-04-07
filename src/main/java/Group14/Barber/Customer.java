@@ -10,6 +10,19 @@ public class Customer implements Runnable {
 
     @Override
     public void run() {
+        try {
+            cavailable.release();
+            if(bavailable.hasQueuedThreads()){
+                spaces.decrementAndGet();
+                System.out.println("Customer in waiting area");
+                bavailable.acquire();
+                spaces.incrementAndGet();
+            }
+            else{
+                bavailable.acquire();
+            }
+
+        }
 
     }
 

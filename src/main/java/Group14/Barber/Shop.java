@@ -6,8 +6,6 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Shop extends javax.management.monitor.Monitor {
-    private final int customerLimit = 5;
-    private int customers;
 
 
     public Shop()   {
@@ -30,9 +28,9 @@ public class Shop extends javax.management.monitor.Monitor {
 
             System.out.println("Customer walks in");
 
-            if (s.getCustomers() < s.getCustomerLimit()) {
+            if (Customer.getCustomers() < Customer.getCustomerLimit()) {
                 new Thread(new Customer()).start();
-                s.setCustomers(s.getCustomers() + 1);
+                Customer.setCustomers(Customer.getCustomers() + 1);
             } else {
                 System.out.println("Customer walks out, as no seats are available");
             }
@@ -41,7 +39,7 @@ public class Shop extends javax.management.monitor.Monitor {
 
     @Override
     public void start() {
-        this.setCustomers(0);
+        Customer.setCustomers(0);
 
     }
 
@@ -49,16 +47,6 @@ public class Shop extends javax.management.monitor.Monitor {
     public void stop() {
 
     }
-    public int getCustomers() {
-        return customers;
-    }
 
-    public void setCustomers(int i) {
-        this.customers = i;
-    }
 
-    public int getCustomerLimit() {
-        return customerLimit;
-    }
 }
-

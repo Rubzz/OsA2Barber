@@ -1,40 +1,48 @@
 package Group14.Barber;
 
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Barber implements Runnable{
-    private boolean barberReady;
+    private enum States {sleeping, cutting, waiting};
+    private States [] state;
+    private Condition[] cond;
+    final Lock lock;
 
     public Barber() {
-        barberReady = true;
+        lock = new ReentrantLock();
+        state = new States[1];
+        cond = new Condition[1];
+        state[0] = States.waiting;
+        cond[0] = lock.newCondition();
+
     }
 
     @Override
-    public void run() {
-        while(true){
+    public void run()    {
+        while (true) {
+            lock.lock();
             try {
-                cavailable.acquire();
+                if (state[0] == States.waiting) {
+                    state[0] = States.cutting;
+                    // Space freed up in waiting area
+                    System.out.println("Customer getting hair cut");
 
-                // Space freed up in waiting area
-                System.out.println("Customer getting hair cut");
-
-                Thread.sleep(ThreadLocalRandom.current().nextInt(1000, 10000 + 1000)); // Sleep to imitate length of time to cut hair
-                System.out.println("Customer Pays and leaves");
-                bavailable.release();
-
+                    Thread.sleep(ThreadLocalRandom.current().nextInt(1000, 10000 + 1000)); // Sleep to imitate length of time to cut hair
+                    System.out.println("Customer Pays and leaves");
+                    state[0] = States.waiting;
+                }
             } catch (InterruptedException e) {
                 e.printStackTrace();
+            } finally {
+                lock.unlock();
             }
         }
-
     }
 
-    public boolean isBarberReady() {
-        return barberReady;
+    public States[] getState() {
+        return state;
     }
-
-    public void setBarberReady(boolean barberReady) {
-        this.barberReady = barberReady;
-    }
-
 }

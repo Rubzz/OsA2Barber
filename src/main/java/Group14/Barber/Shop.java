@@ -1,20 +1,24 @@
 package Group14.Barber;
 
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Shop extends javax.management.monitor.Monitor {
     private final int customerLimit = 5;
     private int customers;
 
+
     public Shop()   {
-        this.customers = 0;
 
     }
 
     public static void main(String[] args) {
         Shop s = new Shop();
         s.start();
+        Barber b = new Barber();
+        System.out.println("Opening up shop");
 
         while(true) {
             try {
@@ -37,6 +41,7 @@ public class Shop extends javax.management.monitor.Monitor {
 
     @Override
     public void start() {
+        this.setCustomers(0);
 
     }
 
@@ -44,18 +49,17 @@ public class Shop extends javax.management.monitor.Monitor {
     public void stop() {
 
     }
-
     public int getCustomers() {
         return customers;
     }
 
-    public void setCustomers(int customers) {
-        this.customers = customers;
+    public void setCustomers(int i) {
+        this.customers = i;
     }
 
     public int getCustomerLimit() {
         return customerLimit;
     }
-
+}
 
 }

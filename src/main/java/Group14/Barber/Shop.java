@@ -15,12 +15,13 @@ public class Shop extends javax.management.monitor.Monitor {
     public static void main(String[] args) {
         Shop s = new Shop();
         s.start();
-        Barber b = new Barber();
+        Barber barber = new Barber();
         System.out.println("Opening up shop");
+        new Thread(barber).start();
 
         while(true) {
             try {
-                Thread.sleep(ThreadLocalRandom.current().nextInt(100, 1000 + 100)); // Sleep until next person gets in
+                Thread.sleep(ThreadLocalRandom.current().nextInt(200, 1000 + 200)); // Sleep until next person gets in
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -29,7 +30,6 @@ public class Shop extends javax.management.monitor.Monitor {
             System.out.println("Customer walks in");
 
             if (Customer.getCustomers() < Customer.getCustomerLimit()) {
-                new Thread(new Customer()).start();
                 Customer.setCustomers(Customer.getCustomers() + 1);
             } else {
                 System.out.println("Customer walks out, as no seats are available");

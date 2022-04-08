@@ -25,15 +25,16 @@ public class Barber implements Runnable{
         while (true) {
             lock.lock();
             try {
+                    if (Customer.getCustomers() > 0) {
 
-                    state[0] = States.waiting;
-                    // Space freed up in waiting area
-                    System.out.println("Customer getting hair cut");
+                        state[0] = States.cutting;
+                        System.out.println("Customer getting hair cut");
 
-                    Thread.sleep(ThreadLocalRandom.current().nextInt(1000, 10000 + 1000)); // Sleep to imitate length of time to cut hair
-                    System.out.println("Customer Pays and leaves");
-                    Customer.setCustomers(Customer.getCustomers() - 1);
-                    state[0] = States.waiting;
+                        Thread.sleep(ThreadLocalRandom.current().nextInt(1000, 5000 + 1000));
+                        System.out.println("Customer Pays and leaves");
+                        Customer.setCustomers(Customer.getCustomers() - 1);
+                        state[0] = States.waiting;
+                    }
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -41,9 +42,5 @@ public class Barber implements Runnable{
                 lock.unlock();
             }
         }
-    }
-
-    public States[] getState() {
-        return state;
     }
 }

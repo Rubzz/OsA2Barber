@@ -1,11 +1,10 @@
 package Group14.Barber;
 
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class Customer implements Runnable{
+public class Customer{
     private static final int customerLimit = 5;
     private static int customers;
     private enum States {cutting, waiting};
@@ -23,26 +22,6 @@ public class Customer implements Runnable{
 
     }
 
-    @Override
-    public void run() {
-//        while (true)    {
-//            lock.lock();
-//
-//            try {
-//                state[0] = States.cutting;
-//                // Space freed up in waiting area
-//                System.out.println("Customer getting hair cut");
-//
-//                Thread.sleep(ThreadLocalRandom.current().nextInt(1000, 10000 + 1000)); // Sleep to imitate length of time to cut hair
-//                System.out.println("Customer Pays and leaves");
-//
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            } finally {
-//                lock.unlock();
-//            }
-//        }
-    }
     public static int getCustomers() {
         return customers;
     }

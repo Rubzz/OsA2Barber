@@ -62,4 +62,3 @@ public class Shop extends javax.management.monitor.Monitor {
     }
 }
 
-}

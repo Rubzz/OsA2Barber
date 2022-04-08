@@ -3,13 +3,27 @@ package Group14.Barber;
 import javax.management.monitor.Monitor;
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ *Runs the barbershop and keeps track of the customers and barber
+ *
+ * @author (Isabelle Lervik)
+ * @version (1.0)
+ */
+
 public class Shop extends Monitor {
 
 
+    /**
+     * constructor for shop
+     */
     public Shop()   {
 
     }
 
+    /**
+     * Launches the application
+     * @param args
+     */
     public static void main(String[] args) {
         Shop s = new Shop();
         s.start();
@@ -35,12 +49,18 @@ public class Shop extends Monitor {
         }
     }
 
+    /**
+     * starts the monitoring
+     */
     @Override
     public void start() {
         Customer.setCustomers(0);
 
     }
 
+    /**
+     * stops the monitoring
+     */
     @Override
     public void stop() {
 

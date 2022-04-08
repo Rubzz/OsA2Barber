@@ -12,6 +12,9 @@ public class Customer{
     private Condition[] cond;
     final Lock lock;
 
+    /**
+     * constructor for customer
+     */
     public Customer() {
         lock = new ReentrantLock();
         state = new States[1];
@@ -22,14 +25,26 @@ public class Customer{
 
     }
 
+    /**
+     * returns the amount of customers as an integer
+     * @return the amount of customers
+     */
     public static int getCustomers() {
         return customers;
     }
 
-    public static void setCustomers(int i) {
-        customers = i;
+    /**
+     * sets the amount of customers as an integer
+     * @param customerAmount amount of customers to set
+     */
+    public static void setCustomers(int customerAmount) {
+        customers = customerAmount;
     }
 
+    /**
+     * returns the limit on how many customers can be in the shop at a time
+     * @return the limit on customers
+     */
     public static int getCustomerLimit() {
         return customerLimit;
     }

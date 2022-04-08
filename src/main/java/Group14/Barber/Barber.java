@@ -11,6 +11,9 @@ public class Barber implements Runnable{
     private Condition[] cond;
     final Lock lock;
 
+    /**
+     * constructor for barber
+     */
     public Barber() {
         lock = new ReentrantLock();
         state = new States[1];
@@ -20,6 +23,9 @@ public class Barber implements Runnable{
 
     }
 
+    /**
+     * runs in the background while the application is running to control the actions of the barber
+     */
     @Override
     public void run()    {
         while (true) {

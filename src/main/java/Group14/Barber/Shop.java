@@ -1,11 +1,9 @@
 package Group14.Barber;
 
+import javax.management.monitor.Monitor;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.concurrent.locks.Condition;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
-public class Shop extends javax.management.monitor.Monitor {
+public class Shop extends Monitor {
 
 
     public Shop()   {
